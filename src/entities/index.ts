@@ -1,0 +1,8 @@
+export { Teacher } from "./teacher/teacher";
+export { ScholarYear } from "./scholar-year/scholar-year";
+export { ScholarYearPeriod } from "./scholar-year-period/scholar-year-period";
+export { Course } from "./course/course";
+export { Student } from "./student/student";
+export { EvaluationSystem } from "./evaluation-system/evaluation-system";
+export { QualitativeLabel } from "./qualitative-label/qualitative-label";
+export { Note } from "./note/note";

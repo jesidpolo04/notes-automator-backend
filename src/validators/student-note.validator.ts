@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, query } from "express-validator";
 
 export const createStudentNoteValidator = [
   body("studentId")
@@ -51,5 +51,25 @@ export const updateStudentNoteValidator = [
     .optional()
     .isInt()
     .withMessage("El valor numérico debe ser un número entero")
+    .toInt(),
+];
+
+export const searchStudentNoteValidator = [
+  query("courseId")
+    .optional()
+    .isInt()
+    .withMessage("El ID del curso debe ser un número entero")
+    .toInt(),
+
+  query("studentId")
+    .optional()
+    .isInt()
+    .withMessage("El ID del estudiante debe ser un número entero")
+    .toInt(),
+
+  query("scholarYearPeriodId")
+    .optional()
+    .isInt()
+    .withMessage("El ID del período académico debe ser un número entero")
     .toInt(),
 ];

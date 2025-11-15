@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
 export const createNoteValidator = [
   body("description")
@@ -58,4 +58,6 @@ export const updateNoteValidator = [
     .isFloat({ min: 0 })
     .withMessage("El peso debe ser un número decimal mayor o igual a 0")
     .toFloat(),
+
+  param("id").notEmpty().isInt().withMessage("El ID de la nota es requerido"),
 ];

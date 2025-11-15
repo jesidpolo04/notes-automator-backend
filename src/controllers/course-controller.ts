@@ -78,7 +78,7 @@ export class CourseController {
       await this._courseRepository.update(id, {
         courseName,
         teacher: teacherId ? { id: teacherId } : undefined,
-        scholarYear: scholarYearId ? { year: scholarYearId } : undefined,
+        scholarYear: scholarYearId ? { id: scholarYearId } : undefined,
       });
 
       const updatedCourse = await this._courseRepository.findOne({

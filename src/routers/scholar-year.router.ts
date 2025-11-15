@@ -6,7 +6,9 @@ export const scholarYearRouter: Router = Router();
 
 const scholarYearController = new ScholarYearController();
 
-scholarYearRouter.get("/", scholarYearController.getAll);
+scholarYearRouter.get("/", (req: Request, res: Response) =>
+  scholarYearController.getAll(req, res)
+);
 
 scholarYearRouter.post(
   "/",

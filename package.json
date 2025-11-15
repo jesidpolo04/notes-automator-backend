@@ -13,7 +13,7 @@
   "main": "src/main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/main.ts"
+    "dev": "tsx watch src/main.ts | pino-pretty"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

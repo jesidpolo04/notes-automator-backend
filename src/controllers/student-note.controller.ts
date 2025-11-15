@@ -265,12 +265,6 @@ class StudentNoteController {
       const queryBuilder = AppDataSource
         .getRepository(StudentNote)
         .createQueryBuilder("studentNote")
-        .select([
-          "studentNote.id",
-          "studentNote.numericValue",
-          "studentNote.createdAt",
-          "studentNote.updatedAt",
-        ])
         .innerJoin("studentNote.note", "note");
 
       if (studentId) {

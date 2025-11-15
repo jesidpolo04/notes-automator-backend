@@ -3,9 +3,9 @@ import { DateTime } from "luxon";
 import {
   Entity,
   Column,
-  CreateDateColumn,
-  UpdateDateColumn,
   PrimaryColumn,
+  BeforeInsert,
+  BeforeUpdate,
 } from "typeorm";
 
 @Entity("teachers")
@@ -33,17 +33,30 @@ export class Teacher {
   @Column({ type: "varchar", length: 255, nullable: false })
   password: string;
 
-  @CreateDateColumn({
+  @Column({
     name: "created_at",
     type: "timestamp",
+    nullable: false,
     transformer: luxonTransformer,
   })
   createdAt: DateTime;
 
-  @UpdateDateColumn({
+  @Column({
     name: "updated_at",
     type: "timestamp",
+    nullable: false,
     transformer: luxonTransformer,
   })
   updatedAt: DateTime;
+
+  @BeforeInsert()
+  setCreationDate() {
+    this.createdAt = DateTime.now();
+    this.updatedAt = DateTime.now();
+  }
+
+  @BeforeUpdate()
+  setUpdateDate() {
+    this.updatedAt = DateTime.now();
+  }
 }

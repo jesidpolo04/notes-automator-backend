@@ -1,0 +1,13 @@
+type: folder
+model: folder
+id: folder
+createdAt: 2025-11-13T19:15:49.095245500
+updatedAt: 2025-11-13T19:15:50.646968800
+workspaceId: wk_uMhfiqoPeB
+folderId: null
+authentication: {}
+authenticationType: null
+description: ""
+headers: []
+name: folder
+sortPriority: 1000.0

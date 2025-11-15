@@ -9,6 +9,7 @@ import {
   EvaluationSystem,
   QualitativeLabel,
   Note,
+  StudentNote,
 } from "@/entities";
 
 export const AppDataSource = new DataSource({
@@ -29,6 +30,7 @@ export const AppDataSource = new DataSource({
     EvaluationSystem,
     QualitativeLabel,
     Note,
+    StudentNote,
   ],
   subscribers: [],
   migrations: [],

@@ -3,11 +3,11 @@ import { DateTime } from "luxon";
 import {
   Entity,
   Column,
-  CreateDateColumn,
-  UpdateDateColumn,
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  BeforeInsert,
+  BeforeUpdate,
 } from "typeorm";
 import { EvaluationSystem } from "@/entities/evaluation-system/evaluation-system";
 
@@ -23,17 +23,30 @@ export class QualitativeLabel {
   @JoinColumn({ name: "evaluation_system_id" })
   evaluationSystem: EvaluationSystem;
 
-  @CreateDateColumn({
+  @Column({
     name: "created_at",
     type: "timestamp",
+    nullable: false,
     transformer: luxonTransformer,
   })
   createdAt: DateTime;
 
-  @UpdateDateColumn({
+  @Column({
     name: "updated_at",
     type: "timestamp",
+    nullable: false,
     transformer: luxonTransformer,
   })
   updatedAt: DateTime;
+
+  @BeforeInsert()
+  setCreationDate() {
+    this.createdAt = DateTime.now();
+    this.updatedAt = DateTime.now();
+  }
+
+  @BeforeUpdate()
+  setUpdateDate() {
+    this.updatedAt = DateTime.now();
+  }
 }

@@ -6,3 +6,4 @@ export { Student } from "./student/student";
 export { EvaluationSystem } from "./evaluation-system/evaluation-system";
 export { QualitativeLabel } from "./qualitative-label/qualitative-label";
 export { Note } from "./note/note";
+export { StudentNote } from "./student-note/student-note";

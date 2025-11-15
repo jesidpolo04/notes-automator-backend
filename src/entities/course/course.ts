@@ -1,11 +1,11 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  BeforeInsert,
+  BeforeUpdate,
 } from "typeorm";
 import { Teacher } from "../teacher/teacher";
 import { ScholarYear } from "../scholar-year/scholar-year";
@@ -28,9 +28,30 @@ export class Course {
   @JoinColumn({ name: "scholar_year" })
   scholarYear: ScholarYear;
 
-  @CreateDateColumn({ name: "created_at", transformer: luxonTransformer })
+  @Column({
+    name: "created_at",
+    type: "timestamp",
+    nullable: false,
+    transformer: luxonTransformer,
+  })
   createdAt: DateTime;
 
-  @UpdateDateColumn({ name: "updated_at", transformer: luxonTransformer })
+  @Column({
+    name: "updated_at",
+    type: "timestamp",
+    nullable: false,
+    transformer: luxonTransformer,
+  })
   updatedAt: DateTime;
+
+  @BeforeInsert()
+  setCreationDate() {
+    this.createdAt = DateTime.now();
+    this.updatedAt = DateTime.now();
+  }
+
+  @BeforeUpdate()
+  setUpdateDate() {
+    this.updatedAt = DateTime.now();
+  }
 }

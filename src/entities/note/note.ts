@@ -3,11 +3,11 @@ import { DateTime } from "luxon";
 import {
   Entity,
   Column,
-  CreateDateColumn,
-  UpdateDateColumn,
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  BeforeInsert,
+  BeforeUpdate,
 } from "typeorm";
 import { Course } from "@/entities/course/course";
 import { ScholarYearPeriod } from "@/entities/scholar-year-period/scholar-year-period";
@@ -37,17 +37,30 @@ export class Note {
   })
   weight: number;
 
-  @CreateDateColumn({
+  @Column({
     name: "created_at",
     type: "timestamp",
+    nullable: false,
     transformer: luxonTransformer,
   })
   createdAt: DateTime;
 
-  @UpdateDateColumn({
+  @Column({
     name: "updated_at",
     type: "timestamp",
+    nullable: false,
     transformer: luxonTransformer,
   })
   updatedAt: DateTime;
+
+  @BeforeInsert()
+  setCreationDate() {
+    this.createdAt = DateTime.now();
+    this.updatedAt = DateTime.now();
+  }
+
+  @BeforeUpdate()
+  setUpdateDate() {
+    this.updatedAt = DateTime.now();
+  }
 }

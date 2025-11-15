@@ -3,28 +3,35 @@ import { DateTime } from "luxon";
 import {
   Entity,
   Column,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
   BeforeInsert,
   BeforeUpdate,
 } from "typeorm";
-import { EvaluationSystem } from "@/entities/evaluation-system/evaluation-system";
+import { Student } from "@/entities/student/student";
+import { Note } from "@/entities/note/note";
+import { QualitativeLabel } from "@/entities/qualitative-label/qualitative-label";
 
-@Entity("scholar_years")
-export class ScholarYear {
-  @PrimaryColumn({ type: "int", unsigned: true, generated: "increment" })
+@Entity("student_notes")
+export class StudentNote {
+  @PrimaryGeneratedColumn({ type: "int", unsigned: true })
   id: number;
 
-  @Column({ type: "varchar", length: 100, nullable: false })
-  year: string; // Can be represented as 2023, 2024, etc. or as "2023-2024"
+  @ManyToOne(() => Student)
+  @JoinColumn({ name: "student_id" })
+  student: Student;
 
-  @Column({ type: "varchar", length: 255, nullable: false })
-  description: string;
+  @ManyToOne(() => Note)
+  @JoinColumn({ name: "note_id" })
+  note: Note;
 
-  @ManyToOne(() => EvaluationSystem)
-  @JoinColumn({ name: "evaluation_system_id" })
-  evaluationSystem: EvaluationSystem;
+  @ManyToOne(() => QualitativeLabel, { nullable: true })
+  @JoinColumn({ name: "qualitative_value_id" })
+  qualitativeValue?: QualitativeLabel;
+
+  @Column({ name: "numeric_value", type: "int", nullable: true })
+  numericValue?: number;
 
   @Column({
     name: "created_at",

@@ -1,0 +1,15 @@
+import { ScholarYearController } from "@/controllers/scholar-year-controller";
+import { scholarYearValidator } from "@/validators/scholar-year.validator";
+import { Request, Response, Router } from "express";
+
+export const scholarYearRouter: Router = Router();
+
+const scholarYearController = new ScholarYearController();
+
+scholarYearRouter.get("/", scholarYearController.getAll);
+
+scholarYearRouter.post(
+  "/",
+  scholarYearValidator,
+  (req: Request, res: Response) => scholarYearController.create(req, res)
+);

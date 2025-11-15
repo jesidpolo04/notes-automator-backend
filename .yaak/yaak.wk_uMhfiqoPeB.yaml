@@ -1,0 +1,14 @@
+type: workspace
+model: workspace
+id: wk_uMhfiqoPeB
+createdAt: 2025-11-13T19:01:35.396886400
+updatedAt: 2025-11-13T19:01:35.396887800
+authentication: {}
+authenticationType: null
+description: ""
+headers: []
+name: hello-world
+encryptionKeyChallenge: null
+settingValidateCertificates: true
+settingFollowRedirects: true
+settingRequestTimeout: 0

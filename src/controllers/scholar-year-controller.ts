@@ -1,5 +1,6 @@
 import { AppDataSource } from "@/database/postgres.config";
 import { ScholarYear } from "@/entities";
+import { logger } from "@/logging";
 import { Request, Response } from "express";
 import { Repository } from "typeorm";
 
@@ -25,7 +26,7 @@ export class ScholarYearController {
       );
       response.status(201).json(savedScholarYear);
     } catch (error) {
-      console.error("Error creating Scholar Year:", error);
+      logger.error(error, "Error creating Scholar Year:");
       response.status(500).json({ message: "Internal server error" });
     }
   }
@@ -35,7 +36,7 @@ export class ScholarYearController {
       const scholarYears = await this._scholarYearRepository.find();
       response.status(200).json(scholarYears);
     } catch (error) {
-      console.error("Error fetching Scholar Years:", error);
+      logger.error(error, "Error fetching Scholar Years:");
       response.status(500).json({ message: "Internal server error" });
     }
   }

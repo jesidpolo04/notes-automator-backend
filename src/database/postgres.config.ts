@@ -11,6 +11,7 @@ import {
   Note,
   StudentNote,
 } from "@/entities";
+import { logger } from "@/logging";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -40,9 +41,9 @@ export const AppDataSource = new DataSource({
 export const initializeDatabase = async (): Promise<void> => {
   try {
     await AppDataSource.initialize();
-    console.log("Database connection established successfully.");
+    logger.info("Database connection established successfully.");
   } catch (error) {
-    console.error("Error during database initialization:", error);
+    logger.error("Error during database initialization:");
     throw error;
   }
 };

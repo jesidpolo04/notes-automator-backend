@@ -1,5 +1,6 @@
 import { AppDataSource } from "@/database/postgres.config";
 import { Note } from "@/entities";
+import { logger } from "@/logging";
 import { Request, Response } from "express";
 import { Repository } from "typeorm";
 
@@ -25,7 +26,7 @@ export class NoteController {
       const savedNote = await this._noteRepository.save(note);
       response.status(201).json(savedNote);
     } catch (error) {
-      console.error("Error creating Note:", error);
+      logger.error(error, "Error creating Note:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -37,7 +38,7 @@ export class NoteController {
       });
       response.status(200).json(notes);
     } catch (error) {
-      console.error("Error fetching Notes:", error);
+      logger.error(error, "Error fetching Notes:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -57,7 +58,7 @@ export class NoteController {
 
       response.status(200).json(note);
     } catch (error) {
-      console.error("Error fetching Note:", error);
+      logger.error(error, "Error fetching Note:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -92,7 +93,7 @@ export class NoteController {
       });
       response.status(200).json(updatedNote);
     } catch (error) {
-      console.error("Error updating Note:", error);
+      logger.error(error, "Error updating Note:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -112,7 +113,7 @@ export class NoteController {
       await this._noteRepository.delete(id);
       response.status(204).send();
     } catch (error) {
-      console.error("Error deleting Note:", error);
+      logger.error(error, "Error deleting Note:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }

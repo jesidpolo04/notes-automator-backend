@@ -1,5 +1,6 @@
 import express from "express";
 import { appRouter } from "@/router";
+import { logger } from "./logging";
 
 export class Server {
   private readonly app: express.Application;
@@ -12,7 +13,7 @@ export class Server {
 
   public listen(port: number): void {
     this.app.listen(port, () => {
-      console.log(`Server is running on http://localhost:${port}`);
+      logger.info(`Server is running on http://localhost:${port}`);
     });
   }
 }

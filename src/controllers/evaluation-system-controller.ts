@@ -1,5 +1,6 @@
 import { AppDataSource } from "@/database/postgres.config";
 import { EvaluationSystem } from "@/entities";
+import { logger } from "@/logging";
 import { Request, Response } from "express";
 import { Repository } from "typeorm";
 
@@ -27,7 +28,7 @@ export class EvaluationSystemController {
       );
       response.status(201).json(savedEvaluationSystem);
     } catch (error) {
-      console.error("Error creating Evaluation System:", error);
+      logger.error(error, "Error creating Evaluation System:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -37,7 +38,7 @@ export class EvaluationSystemController {
       const evaluationSystems = await this._evaluationSystemRepository.find();
       response.status(200).json(evaluationSystems);
     } catch (error) {
-      console.error("Error fetching Evaluation Systems:", error);
+      logger.error(error, "Error fetching Evaluation Systems:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -58,7 +59,7 @@ export class EvaluationSystemController {
 
       response.status(200).json(evaluationSystem);
     } catch (error) {
-      console.error("Error fetching Evaluation System:", error);
+      logger.error(error, "Error fetching Evaluation System:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -92,7 +93,7 @@ export class EvaluationSystemController {
         });
       response.status(200).json(updatedEvaluationSystem);
     } catch (error) {
-      console.error("Error updating Evaluation System:", error);
+      logger.error(error, "Error updating Evaluation System:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -114,7 +115,7 @@ export class EvaluationSystemController {
       await this._evaluationSystemRepository.delete(id);
       response.status(204).send();
     } catch (error) {
-      console.error("Error deleting Evaluation System:", error);
+      logger.error(error, "Error deleting Evaluation System:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }

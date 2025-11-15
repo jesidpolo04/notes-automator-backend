@@ -1,5 +1,6 @@
 import { AppDataSource } from "@/database/postgres.config";
 import { ScholarYearPeriod } from "@/entities";
+import { logger } from "@/logging";
 import { Request, Response } from "express";
 import { Repository } from "typeorm";
 
@@ -24,7 +25,7 @@ export class ScholarYearPeriodController {
         await this._scholarYearPeriodRepository.save(scholarYearPeriod);
       response.status(201).json(savedScholarYearPeriod);
     } catch (error) {
-      console.error("Error creating Scholar Year Period:", error);
+      logger.error(error, "Error creating Scholar Year Period:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -36,7 +37,7 @@ export class ScholarYearPeriodController {
       });
       response.status(200).json(scholarYearPeriods);
     } catch (error) {
-      console.error("Error fetching Scholar Year Periods:", error);
+      logger.error(error, "Error fetching Scholar Year Periods:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -60,7 +61,7 @@ export class ScholarYearPeriodController {
 
       response.status(200).json(scholarYearPeriod);
     } catch (error) {
-      console.error("Error fetching Scholar Year Period:", error);
+      logger.error(error, "Error fetching Scholar Year Period:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -94,7 +95,7 @@ export class ScholarYearPeriodController {
         });
       response.status(200).json(updatedScholarYearPeriod);
     } catch (error) {
-      console.error("Error updating Scholar Year Period:", error);
+      logger.error(error, "Error updating Scholar Year Period:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -117,7 +118,7 @@ export class ScholarYearPeriodController {
       await this._scholarYearPeriodRepository.delete(id);
       response.status(204).send();
     } catch (error) {
-      console.error("Error deleting Scholar Year Period:", error);
+      logger.error(error, "Error deleting Scholar Year Period:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }

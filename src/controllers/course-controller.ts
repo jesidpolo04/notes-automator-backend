@@ -1,5 +1,6 @@
 import { AppDataSource } from "@/database/postgres.config";
 import { Course } from "@/entities";
+import { logger } from "@/logging";
 import { Request, Response } from "express";
 import { Repository } from "typeorm";
 
@@ -23,7 +24,7 @@ export class CourseController {
       const savedCourse = await this._courseRepository.save(course);
       response.status(201).json(savedCourse);
     } catch (error) {
-      console.error("Error creating Course:", error);
+      logger.error(error, "Error creating Course:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -35,7 +36,7 @@ export class CourseController {
       });
       response.status(200).json(courses);
     } catch (error) {
-      console.error("Error fetching Courses:", error);
+      logger.error(error, "Error fetching Courses:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -55,7 +56,7 @@ export class CourseController {
 
       response.status(200).json(course);
     } catch (error) {
-      console.error("Error fetching Course:", error);
+      logger.error(error, "Error fetching Course:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -86,7 +87,7 @@ export class CourseController {
       });
       response.status(200).json(updatedCourse);
     } catch (error) {
-      console.error("Error updating Course:", error);
+      logger.error(error, "Error updating Course:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -106,7 +107,7 @@ export class CourseController {
       await this._courseRepository.delete(id);
       response.status(204).send();
     } catch (error) {
-      console.error("Error deleting Course:", error);
+      logger.error(error, "Error deleting Course:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }

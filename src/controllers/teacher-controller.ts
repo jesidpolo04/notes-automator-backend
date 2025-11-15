@@ -3,6 +3,7 @@ import { Teacher } from "@/entities";
 import { Request, Response } from "express";
 import { Repository } from "typeorm";
 import { nanoid } from "nanoid";
+import { logger } from "@/logging";
 export class TeacherController {
   private readonly _teacherRepository: Repository<Teacher>;
 
@@ -27,7 +28,7 @@ export class TeacherController {
       const savedTeacher = await this._teacherRepository.save(teacher);
       response.status(201).json(savedTeacher);
     } catch (error) {
-      console.error("Error creating Teacher:", error);
+      logger.error("Error creating Teacher:", error);
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -37,7 +38,7 @@ export class TeacherController {
       const teachers = await this._teacherRepository.find();
       response.status(200).json(teachers);
     } catch (error) {
-      console.error("Error fetching Teachers:", error);
+      logger.error("Error fetching Teachers:", error);
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -54,7 +55,7 @@ export class TeacherController {
 
       response.status(200).json(teacher);
     } catch (error) {
-      console.error("Error fetching Teacher:", error);
+      logger.error(error, "Error fetching Teacher:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -83,7 +84,7 @@ export class TeacherController {
       const updatedTeacher = await this._teacherRepository.findOneBy({ id });
       response.status(200).json(updatedTeacher);
     } catch (error) {
-      console.error("Error updating Teacher:", error);
+      logger.error(error, "Error updating Teacher:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -101,7 +102,7 @@ export class TeacherController {
       await this._teacherRepository.delete(id);
       response.status(204).send();
     } catch (error) {
-      console.error("Error deleting Teacher:", error);
+      logger.error(error, "Error deleting Teacher:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }

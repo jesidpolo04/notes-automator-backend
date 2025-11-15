@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { AppDataSource } from "@/database/postgres.config";
 import { QualitativeLabel } from "@/entities/qualitative-label/qualitative-label";
 import { EvaluationSystem } from "@/entities/evaluation-system/evaluation-system";
+import { logger } from "@/logging";
 
 class QualitativeLabelController {
   static async getAll(req: Request, res: Response): Promise<Response> {
@@ -18,7 +19,7 @@ class QualitativeLabelController {
         count: qualitativeLabels.length,
       });
     } catch (error) {
-      console.error("Error fetching qualitative labels:", error);
+      logger.error(error, "Error fetching qualitative labels:");
       return res.status(500).json({
         success: false,
         message:
@@ -50,7 +51,7 @@ class QualitativeLabelController {
         data: qualitativeLabel,
       });
     } catch (error) {
-      console.error("Error fetching qualitative label:", error);
+      logger.error(error, "Error fetching qualitative label:");
       return res.status(500).json({
         success: false,
         message:
@@ -100,7 +101,7 @@ class QualitativeLabelController {
         data: completeQualitativeLabel,
       });
     } catch (error) {
-      console.error("Error creating qualitative label:", error);
+      logger.error(error, "Error creating qualitative label:");
       return res.status(500).json({
         success: false,
         message: "Error interno del servidor al crear la etiqueta cualitativa",
@@ -156,7 +157,7 @@ class QualitativeLabelController {
         data: updatedQualitativeLabel,
       });
     } catch (error) {
-      console.error("Error updating qualitative label:", error);
+      logger.error(error, "Error updating qualitative label:");
       return res.status(500).json({
         success: false,
         message:
@@ -189,7 +190,7 @@ class QualitativeLabelController {
         message: "Etiqueta cualitativa eliminada exitosamente",
       });
     } catch (error) {
-      console.error("Error deleting qualitative label:", error);
+      logger.error(error, "Error deleting qualitative label:");
       return res.status(500).json({
         success: false,
         message:

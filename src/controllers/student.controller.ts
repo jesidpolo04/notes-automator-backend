@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { AppDataSource } from "@/database/postgres.config";
 import { Student } from "@/entities/student/student";
 import { Course } from "@/entities/course/course";
+import { logger } from "@/logging";
 
 class StudentController {
   // GET /students - Get all students
@@ -18,7 +19,7 @@ class StudentController {
         count: students.length,
       });
     } catch (error) {
-      console.error("Error fetching students:", error);
+      logger.error(error, "Error fetching students:");
       return res.status(500).json({
         success: false,
         message: "Error interno del servidor al obtener estudiantes",
@@ -49,7 +50,7 @@ class StudentController {
         data: student,
       });
     } catch (error) {
-      console.error("Error fetching student:", error);
+      logger.error(error, "Error fetching student:");
       return res.status(500).json({
         success: false,
         message: "Error interno del servidor al obtener el estudiante",
@@ -106,7 +107,7 @@ class StudentController {
         data: completeStudent,
       });
     } catch (error) {
-      console.error("Error creating student:", error);
+      logger.error(error, "Error creating student:");
       return res.status(500).json({
         success: false,
         message: "Error interno del servidor al crear el estudiante",
@@ -164,7 +165,7 @@ class StudentController {
         data: updatedStudent,
       });
     } catch (error) {
-      console.error("Error updating student:", error);
+      logger.error(error, "Error updating student:");
       return res.status(500).json({
         success: false,
         message: "Error interno del servidor al actualizar el estudiante",
@@ -196,7 +197,7 @@ class StudentController {
         message: "Estudiante eliminado exitosamente",
       });
     } catch (error) {
-      console.error("Error deleting student:", error);
+      logger.error(error, "Error deleting student:");
       return res.status(500).json({
         success: false,
         message: "Error interno del servidor al eliminar el estudiante",

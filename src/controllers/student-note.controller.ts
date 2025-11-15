@@ -4,6 +4,7 @@ import { StudentNote } from "@/entities/student-note/student-note";
 import { Student } from "@/entities/student/student";
 import { Note } from "@/entities/note/note";
 import { QualitativeLabel } from "@/entities/qualitative-label/qualitative-label";
+import { logger } from "@/logging";
 
 class StudentNoteController {
   static async getAll(req: Request, res: Response): Promise<Response> {
@@ -19,7 +20,7 @@ class StudentNoteController {
         count: studentNotes.length,
       });
     } catch (error) {
-      console.error("Error fetching student notes:", error);
+      logger.error(error, "Error fetching student notes:");
       return res.status(500).json({
         success: false,
         message:
@@ -50,7 +51,7 @@ class StudentNoteController {
         data: studentNote,
       });
     } catch (error) {
-      console.error("Error fetching student note:", error);
+      logger.error(error, "Error fetching student note:");
       return res.status(500).json({
         success: false,
         message: "Error interno del servidor al obtener la nota del estudiante",
@@ -123,7 +124,7 @@ class StudentNoteController {
         data: completeStudentNote,
       });
     } catch (error) {
-      console.error("Error creating student note:", error);
+      logger.error(error, "Error creating student note:");
       return res.status(500).json({
         success: false,
         message: "Error interno del servidor al crear la nota del estudiante",
@@ -216,7 +217,7 @@ class StudentNoteController {
         data: updatedStudentNote,
       });
     } catch (error) {
-      console.error("Error updating student note:", error);
+      logger.error(error, "Error updating student note:");
       return res.status(500).json({
         success: false,
         message:
@@ -248,7 +249,7 @@ class StudentNoteController {
         message: "Nota de estudiante eliminada exitosamente",
       });
     } catch (error) {
-      console.error("Error deleting student note:", error);
+      logger.error(error, "Error deleting student note:");
       return res.status(500).json({
         success: false,
         message:

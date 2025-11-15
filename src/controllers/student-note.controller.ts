@@ -265,23 +265,29 @@ class StudentNoteController {
       const queryBuilder = AppDataSource
         .getRepository(StudentNote)
         .createQueryBuilder("studentNote")
+        .select([
+          "studentNote.id",
+          "studentNote.numericValue",
+          "studentNote.createdAt",
+          "studentNote.updatedAt",
+        ])
         .innerJoin("studentNote.note", "note");
 
       if (studentId) {
         queryBuilder.andWhere("studentNote.student = :studentId", {
-          studentId: Number.parseInt(studentId as string),
+          studentId,
         });
       }
 
       if (courseId) {
         queryBuilder.andWhere("note.course = :courseId", {
-          courseId: Number.parseInt(courseId as string),
+          courseId,
         });
       }
 
       if (scholarYearPeriodId) {
         queryBuilder.andWhere("note.scholarYearPeriod = :scholarYearPeriodId", {
-          scholarYearPeriodId: Number.parseInt(scholarYearPeriodId as string),
+          scholarYearPeriodId,
         });
       }
 

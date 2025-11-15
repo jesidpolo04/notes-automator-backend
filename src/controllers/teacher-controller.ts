@@ -28,7 +28,7 @@ export class TeacherController {
       const savedTeacher = await this._teacherRepository.save(teacher);
       response.status(201).json(savedTeacher);
     } catch (error) {
-      logger.error("Error creating Teacher:", error);
+      logger.error(error, "Error creating Teacher:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
@@ -38,7 +38,7 @@ export class TeacherController {
       const teachers = await this._teacherRepository.find();
       response.status(200).json(teachers);
     } catch (error) {
-      logger.error("Error fetching Teachers:", error);
+      logger.error(error, "Error fetching Teachers:");
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }

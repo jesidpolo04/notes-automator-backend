@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { appRouter } from "@/router";
 import { logger } from "./logging";
 
@@ -7,6 +8,7 @@ export class Server {
 
   constructor() {
     this.app = express();
+    this.app.use(cors());
     this.app.use(express.json());
     this.app.use(appRouter);
   }

@@ -21,6 +21,10 @@ scholarYearPeriodRouter.get("/", (req: Request, res: Response) =>
   scholarYearPeriodController.getAll(req, res)
 );
 
+scholarYearPeriodRouter.get("/filter", (req: Request, res: Response) =>
+  scholarYearPeriodController.filter(req, res)
+);
+
 scholarYearPeriodRouter.get("/:id", (req: Request, res: Response) =>
   scholarYearPeriodController.getById(req, res)
 );

@@ -117,4 +117,31 @@ export class NoteController {
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
+
+  async filter(request: Request, response: Response): Promise<void> {
+    try {
+      const { courseId, scholarYearPeriodId } = request.query;
+      const where: any = {};
+
+      if (courseId) {
+        where.course = { id: Number.parseInt(courseId as string) };
+      }
+
+      if (scholarYearPeriodId) {
+        where.scholarYearPeriod = {
+          id: Number.parseInt(scholarYearPeriodId as string),
+        };
+      }
+
+      const notes = await this._noteRepository.find({
+        where,
+        relations: ["course", "scholarYearPeriod"],
+      });
+
+      response.status(200).json(notes);
+    } catch (error) {
+      logger.error(error, "Error filtering Notes:");
+      response.status(500).json({ message: "Error interno del servidor" });
+    }
+  }
 }

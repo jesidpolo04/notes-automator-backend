@@ -11,6 +11,9 @@ const studentRouter = Router();
 // GET /api/students - Get all students
 studentRouter.get("/", StudentController.getAll);
 
+// GET /api/students/filter - Filter students
+studentRouter.get("/filter", StudentController.filter);
+
 // GET /api/students/:id - Get student by ID
 studentRouter.get("/:id", StudentController.getById);
 

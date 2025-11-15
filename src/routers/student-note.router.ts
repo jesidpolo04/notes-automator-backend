@@ -3,12 +3,15 @@ import StudentNoteController from "@/controllers/student-note.controller";
 import {
   createStudentNoteValidator,
   updateStudentNoteValidator,
+  searchStudentNoteValidator,
 } from "@/validators/student-note.validator";
 import { handleValidationErrors } from "@/middlewares/validation.middleware";
 
 const studentNoteRouter = Router();
 
 studentNoteRouter.get("/", StudentNoteController.getAll);
+
+studentNoteRouter.get("/search", searchStudentNoteValidator, handleValidationErrors, StudentNoteController.search);
 
 studentNoteRouter.get("/:id", StudentNoteController.getById);
 

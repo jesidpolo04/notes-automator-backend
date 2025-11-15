@@ -257,6 +257,49 @@ class StudentNoteController {
       });
     }
   }
+
+  static async search(req: Request, res: Response): Promise<Response> {
+    try {
+      const { courseId, studentId, scholarYearPeriodId } = req.query;
+
+      const queryBuilder = AppDataSource
+        .getRepository(StudentNote)
+        .createQueryBuilder("studentNote")
+        .innerJoin("studentNote.note", "note");
+
+      if (studentId) {
+        queryBuilder.andWhere("studentNote.student = :studentId", {
+          studentId: Number.parseInt(studentId as string),
+        });
+      }
+
+      if (courseId) {
+        queryBuilder.andWhere("note.course = :courseId", {
+          courseId: Number.parseInt(courseId as string),
+        });
+      }
+
+      if (scholarYearPeriodId) {
+        queryBuilder.andWhere("note.scholarYearPeriod = :scholarYearPeriodId", {
+          scholarYearPeriodId: Number.parseInt(scholarYearPeriodId as string),
+        });
+      }
+
+      const studentNotes = await queryBuilder.getMany();
+
+      return res.json({
+        success: true,
+        data: studentNotes,
+        count: studentNotes.length,
+      });
+    } catch (error) {
+      logger.error(error, "Error searching student notes:");
+      return res.status(500).json({
+        success: false,
+        message: "Error interno del servidor al buscar las notas de estudiantes",
+      });
+    }
+  }
 }
 
 export default StudentNoteController;

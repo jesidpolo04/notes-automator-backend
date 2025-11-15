@@ -21,6 +21,10 @@ noteRouter.get("/", (req: Request, res: Response) =>
   noteController.getAll(req, res)
 );
 
+noteRouter.get("/filter", (req: Request, res: Response) =>
+  noteController.filter(req, res)
+);
+
 noteRouter.get("/:id", (req: Request, res: Response) =>
   noteController.getById(req, res)
 );

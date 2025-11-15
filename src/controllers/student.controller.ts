@@ -204,6 +204,39 @@ class StudentController {
       });
     }
   }
+
+  static async filter(req: Request, res: Response): Promise<Response> {
+    try {
+      const { courseId, isRetired } = req.query;
+      const studentRepository = AppDataSource.getRepository(Student);
+      const where: any = {};
+
+      if (courseId) {
+        where.course = { id: Number.parseInt(courseId as string) };
+      }
+
+      if (isRetired !== undefined) {
+        where.isRetired = isRetired === "true";
+      }
+
+      const students = await studentRepository.find({
+        where,
+        relations: ["course"],
+      });
+
+      return res.json({
+        success: true,
+        data: students,
+        count: students.length,
+      });
+    } catch (error) {
+      logger.error(error, "Error filtering students:");
+      return res.status(500).json({
+        success: false,
+        message: "Error interno del servidor al filtrar estudiantes",
+      });
+    }
+  }
 }
 
 export default StudentController;

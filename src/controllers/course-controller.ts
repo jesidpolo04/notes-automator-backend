@@ -111,4 +111,29 @@ export class CourseController {
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
+
+  async filter(request: Request, response: Response): Promise<void> {
+    try {
+      const { teacherId, scholarYearId } = request.query;
+      const where: any = {};
+
+      if (teacherId) {
+        where.teacher = { id: Number.parseInt(teacherId as string) };
+      }
+
+      if (scholarYearId) {
+        where.scholarYear = { id: Number.parseInt(scholarYearId as string) };
+      }
+
+      const courses = await this._courseRepository.find({
+        where,
+        relations: ["teacher", "scholarYear"],
+      });
+
+      response.status(200).json(courses);
+    } catch (error) {
+      logger.error(error, "Error filtering Courses:");
+      response.status(500).json({ message: "Error interno del servidor" });
+    }
+  }
 }

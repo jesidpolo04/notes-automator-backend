@@ -122,4 +122,25 @@ export class ScholarYearPeriodController {
       response.status(500).json({ message: "Error interno del servidor" });
     }
   }
+
+  async filter(request: Request, response: Response): Promise<void> {
+    try {
+      const { scholarYearId } = request.query;
+      const where: any = {};
+
+      if (scholarYearId) {
+        where.scholarYear = { id: Number.parseInt(scholarYearId as string) };
+      }
+
+      const scholarYearPeriods = await this._scholarYearPeriodRepository.find({
+        where,
+        relations: ["scholarYear"],
+      });
+
+      response.status(200).json(scholarYearPeriods);
+    } catch (error) {
+      logger.error(error, "Error filtering Scholar Year Periods:");
+      response.status(500).json({ message: "Error interno del servidor" });
+    }
+  }
 }

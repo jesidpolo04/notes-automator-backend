@@ -21,6 +21,10 @@ courseRouter.get("/", (req: Request, res: Response) =>
   courseController.getAll(req, res)
 );
 
+courseRouter.get("/filter", (req: Request, res: Response) =>
+  courseController.filter(req, res)
+);
+
 courseRouter.get("/:id", (req: Request, res: Response) =>
   courseController.getById(req, res)
 );

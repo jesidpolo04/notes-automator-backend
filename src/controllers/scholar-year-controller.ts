@@ -40,4 +40,21 @@ export class ScholarYearController {
       response.status(500).json({ message: "Internal server error" });
     }
   }
+
+  async delete(request: Request, response: Response): Promise<void> {
+    try {
+      const { id } = request.params;
+      const deleteResult = await this._scholarYearRepository.delete(id);
+      if (deleteResult.affected && deleteResult.affected > 0) {
+        response
+          .status(200)
+          .json({ message: "Scholar Year deleted successfully" });
+      } else {
+        response.status(404).json({ message: "Scholar Year not found" });
+      }
+    } catch (error) {
+      logger.error(error, "Error deleting Scholar Year:");
+      response.status(500).json({ message: "Internal server error" });
+    }
+  }
 }

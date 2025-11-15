@@ -15,3 +15,7 @@ scholarYearRouter.post(
   scholarYearValidator,
   (req: Request, res: Response) => scholarYearController.create(req, res)
 );
+
+scholarYearRouter.delete("/:id", (req: Request, res: Response) =>
+  scholarYearController.delete(req, res)
+);
